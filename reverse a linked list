@@ -1,0 +1,17 @@
+Node* Reverse(Node *head)
+{      
+    Node* t1 = head -> next;
+    if(t1 == NULL || head == NULL)
+        return head;
+    Node* t2 = t1 -> next;
+    head -> next = NULL;
+    while(t1 != NULL)
+        {
+        t1 -> next = head;
+        head = t1;
+        t1 = t2;
+        if(t2 != NULL)
+            t2 = t2 -> next;
+    }
+    return head;
+}
