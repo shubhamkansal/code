@@ -1,0 +1,50 @@
+package com.kansal.testprj;
+
+import com.kansal.testprj.PerfectTree.Node;
+
+public class TreeLevelDiff {
+	static class Node{
+		int data;
+		Node left,right;
+		Node(int data){
+			this.data = data;
+			left=right=null;
+		}
+	}
+	Node root;
+	static int even_sum = 0, odd_sum = 0;
+	
+	int FindDiff(Node root) {
+		FindDiffUtil(root, 1);
+		return Math.abs(even_sum -odd_sum);
+	}
+	
+	static void FindDiffUtil(Node root, int level) {
+		if(root == null) {
+			return;
+		}
+		if(level%2 == 0) {
+			even_sum += root.data;
+		}
+		else {
+			odd_sum += root.data;
+		}
+		FindDiffUtil(root.left, level+1);
+		FindDiffUtil(root.right, level+1);
+	}
+	
+	public static void main(String args[]) {
+		TreeLevelDiff t = new TreeLevelDiff();
+		t.root = new Node(20);
+		t.root.left = new Node(4);
+		t.root.left.left = new Node(2);
+		t.root.left.right = new Node(2);
+		t.root.right = new Node(6);
+		t.root.right.left = new Node(1);
+		t.root.right.right = new Node(5);
+		System.out.println(t.FindDiff(t.root));
+		System.out.println(even_sum + " " + odd_sum);
+		
+	}
+
+}
