@@ -1,0 +1,53 @@
+package com.kansal.testprj;
+
+public class PerfectTree {
+	
+	static class Node{
+		int data;
+		Node left, right;
+		Node(int data){
+			this.data = data;
+			left = right = null;
+		}
+	}
+	
+	Node root;
+	
+	static int sum(Node root) {
+		if(root == null) {
+			return 0;
+		}
+		return root.data + sum(root.left) + sum(root.right);
+	}
+	
+	boolean checkPerfectTree(Node root) {
+		//System.out.println(root.data);
+		if(root == null) {
+			return true;
+		}
+		if(root.left == null && root.right == null) {
+			return true;
+		}
+		//System.out.println(root.data + " -> " + sum(root));
+		if(2*root.data != sum(root)) {
+			return false;
+		}
+		
+		return 2*root.data == sum(root) && checkPerfectTree(root.left) && checkPerfectTree(root.right);
+	}
+	
+	
+	
+	public static void main(String args[]) {
+		PerfectTree t = new PerfectTree();
+		t.root = new Node(20);
+		t.root.left = new Node(4);
+		t.root.left.left = new Node(2);
+		t.root.left.right = new Node(2);
+		t.root.right = new Node(6);
+		t.root.right.left = new Node(1);
+		t.root.right.right = new Node(5);
+		System.out.println(t.checkPerfectTree(t.root));
+	}
+
+}
